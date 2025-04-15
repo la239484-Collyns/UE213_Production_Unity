@@ -1,4 +1,5 @@
 using System;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class Collectible : MonoBehaviour
@@ -7,6 +8,7 @@ public class Collectible : MonoBehaviour
     public float heightOffset;
     public Int32 beat;
     public float offset;
+    public int Value;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -42,7 +44,7 @@ public class Collectible : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            ScoreManager.instance.Addpoint();
+            ScoreManager.instance.Addpoint(Value);
             Destroy(gameObject);
         }
     }

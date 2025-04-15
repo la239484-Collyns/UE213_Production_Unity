@@ -24,8 +24,8 @@ public class ScoreManager : MonoBehaviour
     {
     }
 
-    public void Addpoint(){
-        Score += 1;
+    public void Addpoint(int added){
+        Score += added;
         ScoreText.text = Score.ToString();
     }
 }
