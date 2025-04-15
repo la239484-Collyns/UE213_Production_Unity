@@ -25,7 +25,13 @@ public class ScoreManager : MonoBehaviour
     }
 
     public void Addpoint(int added){
+        if(Score +added >= 0){
         Score += added;
         ScoreText.text = Score.ToString();
+        }
+        else{
+            Score = 0;
+        ScoreText.text = Score.ToString();
+        }
     }
 }
