@@ -12,9 +12,11 @@ public class CollectibleCreator : MonoBehaviour
     public PathCreator pathCreator;
     public GameObject vehicle;
     public GameObject[] prefabs;
+    
 
     // Random Path Creator
     public GameObject prefab;
+    public GameObject Obstacles;
     public Int32 beatsBetweenSpawn;
     public Int32 spawnGroupSize;
     public Int32 beatsBetweenGroup;
