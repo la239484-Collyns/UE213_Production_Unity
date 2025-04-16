@@ -3,7 +3,6 @@ using PathCreation.Examples;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using static CollectibleCreator;
@@ -179,8 +178,8 @@ public class CollectibleCreator : MonoBehaviour
         {
             return;
         }
-     GameObject collectibleBase = prefabs[UnityEngine.Random.Range(0, prefabs.Length)];
-        Collectible collectible = collectibleBase.GetComponent<Collectible>();
+
+        Collectible collectible = prefab.GetComponent<Collectible>();
         if (collectible == null)
         {
             return;
@@ -216,7 +215,9 @@ public class CollectibleCreator : MonoBehaviour
                 Vector3 spawnPosition = new Vector3();
                 Quaternion spawnRotation = pathCreator.path.GetRotationAtDistance(distance, currentVehicle.endOfPathInstruction) * Quaternion.Euler(0, 0, 90);
 
-                GameObject cube = Instantiate(collectibleBase, spawnPosition, spawnRotation);
+                GameObject randomPrefab = prefabs[UnityEngine.Random.Range(0, prefabs.Length)];
+                GameObject cube = Instantiate(randomPrefab, spawnPosition, spawnRotation);
+
                 cube.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
                 cube.transform.position = pathCreator.path.GetPointAtDistance(distance, currentVehicle.endOfPathInstruction) + (cube.transform.right * spawnOffset) + (cube.transform.up * collectible.heightOffset);
                 cube.transform.parent = transform;
