@@ -218,7 +218,7 @@ public class CollectibleCreator : MonoBehaviour
                 GameObject randomPrefab = prefabs[UnityEngine.Random.Range(0, prefabs.Length)];
                 GameObject cube = Instantiate(randomPrefab, spawnPosition, spawnRotation);
 
-                cube.transform.localScale = new Vector3(1, 1, 1);
+                cube.transform.localScale = new Vector3(2, 2, 2);
                 cube.transform.position = pathCreator.path.GetPointAtDistance(distance, currentVehicle.endOfPathInstruction) + (cube.transform.right * spawnOffset) + (cube.transform.up * collectible.heightOffset);
                 cube.transform.parent = transform;
 
