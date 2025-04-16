@@ -16,6 +16,7 @@ namespace PathCreation.Examples
         public float offsetSpeed = 1.0f;
         public float heightOffset = 0.0f;
         public Vector3 vehiculeRotation;
+        public bool startFromEnd = false;
         public float offset { get; set; }
         public float timeToTravel { get; set; }
 
@@ -60,20 +61,32 @@ namespace PathCreation.Examples
 
         void Start()
         {
+            currentOffset = offset;
+            distanceTravelled = 0f;
             if (pathCreator != null)
             {
                 // Subscribed to the pathUpdated event so that we're notified if the path changes during the game
                 pathCreator.pathUpdated += OnPathChanged;
-            }
 
-            currentOffset = offset;
+                if (startFromEnd)
+                {
+                    distanceTravelled = pathCreator.path.length;
+                }
+            }
         }
 
         void Update()
         {
             if (pathCreator != null)
             {
-                distanceTravelled += speed * Time.deltaTime;
+                if (startFromEnd)
+                {
+                    distanceTravelled -= speed * Time.deltaTime;
+                }
+                else
+                {
+                    distanceTravelled += speed * Time.deltaTime;
+                }
 
                 currentOffset = Mathf.MoveTowards(currentOffset, offset, Time.deltaTime * offsetSpeed);
 
