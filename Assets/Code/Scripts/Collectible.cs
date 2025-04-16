@@ -44,13 +44,22 @@ public class Collectible : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            if (type == CollectibleType.Coin)
+            {
             ScoreManager.instance.Addpoint(Value);
             Destroy(gameObject);
+            }
+            else
+            {
+                PowerUp.instance.Change();
+            }
         }
     }
 }
 
 
 public enum CollectibleType { 
-    Cube
+    Coin,
+    PowerUp,
+    Obstacles
 };

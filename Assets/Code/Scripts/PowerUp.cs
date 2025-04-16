@@ -19,7 +19,7 @@ public class PowerUp : MonoBehaviour
         
     }
 
-    void Addpoint(){
+    public void Change(){
         Original.mesh = Plane;
     }
 }
