@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  heightOffset: 0.15
+  heightOffset: 0.5
   beat: 0
   offset: 0
   Value: 1
