@@ -53,7 +53,7 @@ namespace PathCreation.Examples
                 }
 
                 transform.position = pathCreator.path.GetPointAtDistance(distanceTravelled, endOfPathInstruction) + (transform.right * currentOffset) + transform.up;
-                transform.rotation = pathCreator.path.GetRotationAtDistance(distanceTravelled, endOfPathInstruction) * Quaternion.Euler(vehiculeRotation.x, vehiculeRotation.y, vehiculeRotation.z);
+                transform.rotation = pathCreator.path.GetRotationAtDistance(distanceTravelled, endOfPathInstruction) * Quaternion.Euler(vehiculeRotation.x+90, vehiculeRotation.y+90, vehiculeRotation.z+90);
 
             }
         }

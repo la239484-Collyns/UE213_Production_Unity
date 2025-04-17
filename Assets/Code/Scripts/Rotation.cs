@@ -1,66 +1,75 @@
 using UnityEngine;
 
 public class MultiAxisRotator : MonoBehaviour
-{    Vector3 baseRotation = Vector3.zero;
+{
+    public enum RotationMode { Reverse, Loop }
+
+    [Header("Base Rotation")]
+    public Vector3 baseRotation = Vector3.zero;
+
+    [System.Serializable]
+    public class AxisRotationSettings
+    {
+        public bool enable = true;
+        public float speed = 50f;
+        public float min = -45f;
+        public float max = 45f;
+        public RotationMode mode = RotationMode.Reverse;
+
+        [HideInInspector] public float current = 0f;
+        [HideInInspector] public int direction = 1;
+    }
 
     [Header("X Axis Settings")]
-    public bool rotateX = true;
-    public float speedX = 50f;
-    public float minX = -45f;
-    public float maxX = 45f;
+    public AxisRotationSettings x = new AxisRotationSettings();
 
     [Header("Y Axis Settings")]
-    public bool rotateY = true;
-    public float speedY = 100f;
-    public float minY = -90f;
-    public float maxY = 90f;
+    public AxisRotationSettings y = new AxisRotationSettings();
 
     [Header("Z Axis Settings")]
-    public bool rotateZ = false;
-    public float speedZ = 30f;
-    public float minZ = -30f;
-    public float maxZ = 30f;
-
-    private float currentX;
-    private float currentY;
-    private float currentZ;
-
-    private int dirX = 1;
-    private int dirY = 1;
-    private int dirZ = 1;
+    public AxisRotationSettings z = new AxisRotationSettings();
 
     void Start()
     {
-        // Initialize with base rotation
-        currentX = transform.localEulerAngles.x;
-        currentY = transform.localEulerAngles.y;
-        currentZ = transform.localEulerAngles.z;
+        x.current = transform.localEulerAngles.x;
+        y.current = transform.localEulerAngles.y;
+        z.current = transform.localEulerAngles.z;
     }
 
     void Update()
     {
-        if (rotateX)
-        {
-            currentX += speedX * Time.deltaTime * dirX;
-            if (currentX >= maxX) { currentX = maxX; dirX = -1; }
-            else if (currentX <= minX) { currentX = minX; dirX = 1; }
-        }
+        UpdateAxis(ref x);
+        UpdateAxis(ref y);
+        UpdateAxis(ref z);
 
-        if (rotateY)
-        {
-            currentY += speedY * Time.deltaTime * dirY;
-            if (currentY >= maxY) { currentY = maxY; dirY = -1; }
-            else if (currentY <= minY) { currentY = minY; dirY = 1; }
-        }
+        transform.localEulerAngles = baseRotation + new Vector3(x.current, y.current, z.current);
+    }
 
-        if (rotateZ)
-        {
-            currentZ += speedZ * Time.deltaTime * dirZ;
-            if (currentZ >= maxZ) { currentZ = maxZ; dirZ = -1; }
-            else if (currentZ <= minZ) { currentZ = minZ; dirZ = 1; }
-        }
+    void UpdateAxis(ref AxisRotationSettings axis)
+    {
+        if (!axis.enable) return;
 
-        // Apply rotation offset from base
-        transform.localEulerAngles = baseRotation + new Vector3(currentX, currentY, currentZ);
+        axis.current += axis.speed * Time.deltaTime * axis.direction;
+
+        if (axis.mode == RotationMode.Reverse)
+        {
+            if (axis.current >= axis.max)
+            {
+                axis.current = axis.max;
+                axis.direction = -1;
+            }
+            else if (axis.current <= axis.min)
+            {
+                axis.current = axis.min;
+                axis.direction = 1;
+            }
+        }
+        else if (axis.mode == RotationMode.Loop)
+        {
+            if (axis.current >= axis.max)
+            {
+                axis.current = axis.min;
+            }
+        }
     }
 }

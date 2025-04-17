@@ -139,7 +139,7 @@ public class CollectibleCreator : MonoBehaviour
             Debug.Log(distance);
             // Spawn the collectible
             Vector3 spawnPosition = new Vector3();
-            Quaternion spawnRotation = pathCreator.path.GetRotationAtDistance(distance, vehicleData.endOfPathInstruction) * Quaternion.Euler(0, 90, 180);
+            Quaternion spawnRotation = pathCreator.path.GetRotationAtDistance(distance, vehicleData.endOfPathInstruction) * Quaternion.Euler(0, -90, 180);
 
             GameObject collectibleBase;
             collectibleByType.TryGetValue(collectibleData.type, out collectibleBase);

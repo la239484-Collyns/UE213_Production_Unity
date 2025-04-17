@@ -125,7 +125,7 @@ MonoBehaviour:
   type: 0
   heightOffset: 0
   beat: 0
-  offset: 0
+  offset: 100
   Value: 1
   Rotation: {x: 0, y: 0, z: 0}
 --- !u!114 &8861073932017094437
@@ -140,4 +140,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4f54499ba7bc51469708f133f5e1bc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: {x: 0, y: 0, z: 90}
+  baseRotation: {x: 0, y: 0, z: 0}
+  x:
+    enable: 0
+    speed: 50
+    min: -45
+    max: 45
+    mode: 0
+    current: 0
+    direction: 1
+  y:
+    enable: 0
+    speed: 50
+    min: -45
+    max: 45
+    mode: 0
+    current: 0
+    direction: 1
+  z:
+    enable: 1
+    speed: 50
+    min: 0
+    max: 360
+    mode: 1
+    current: 0
+    direction: 1
