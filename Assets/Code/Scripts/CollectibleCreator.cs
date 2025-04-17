@@ -139,7 +139,7 @@ public class CollectibleCreator : MonoBehaviour
             Debug.Log(distance);
             // Spawn the collectible
             Vector3 spawnPosition = new Vector3();
-            Quaternion spawnRotation = pathCreator.path.GetRotationAtDistance(distance, vehicleData.endOfPathInstruction) * Quaternion.Euler(0, -90, 180);
+            Quaternion spawnRotation = pathCreator.path.GetRotationAtDistance(distance, vehicleData.endOfPathInstruction) * Quaternion.Euler(0, -0, 90);
 
             GameObject collectibleBase;
             collectibleByType.TryGetValue(collectibleData.type, out collectibleBase);
@@ -213,7 +213,7 @@ public class CollectibleCreator : MonoBehaviour
                 Debug.Log(distance);
                 // Spawn collectible
                 Vector3 spawnPosition = new Vector3();
-                Quaternion spawnRotation = pathCreator.path.GetRotationAtDistance(distance, currentVehicle.endOfPathInstruction) * Quaternion.Euler(0, -90, 180);
+                Quaternion spawnRotation = pathCreator.path.GetRotationAtDistance(distance, currentVehicle.endOfPathInstruction) * Quaternion.Euler(0, -0, 90);
 
                 GameObject randomPrefab = prefabs[UnityEngine.Random.Range(0, prefabs.Length)];
                 GameObject cube = Instantiate(randomPrefab, spawnPosition, spawnRotation);
@@ -280,7 +280,7 @@ public class CollectibleCreator : MonoBehaviour
 
 
         // Spawn the collectible
-        Quaternion spawnRotation = pathCreator.path.GetRotationAtDistance(distance, currentVehicle.endOfPathInstruction) * Quaternion.Euler(0, -90, 180);
+        Quaternion spawnRotation = pathCreator.path.GetRotationAtDistance(distance, currentVehicle.endOfPathInstruction) * Quaternion.Euler(0, -0, 90);
 
 
         GameObject collectible = inCollectible.gameObject;
