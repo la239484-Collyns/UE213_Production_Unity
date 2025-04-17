@@ -6,7 +6,7 @@ namespace PathCreation.Examples
 {
     // Moves along a path at constant speed.
     // Depending on the end of path instruction, will either loop, reverse, or stop at the end of the path.
-    public class PawnFollower : MonoBehaviour
+    public class ObjectFollower : MonoBehaviour
     {
         [Header("Path Manager")]
         public PathCreator pathCreator;
