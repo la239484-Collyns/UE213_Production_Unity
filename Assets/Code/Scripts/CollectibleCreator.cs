@@ -54,7 +54,8 @@ public class CollectibleCreator : MonoBehaviour
                     beat = collectible.beat,
                     offset = collectible.offset,
                     heightOffset = collectible.heightOffset,
-                    scale = collectible.transform.localScale
+                    scale = collectible.transform.localScale,
+                    rotation = collectible.Rotation
                 };
 
                 saveObject.collectibles.Add(item);
@@ -116,6 +117,7 @@ public class CollectibleCreator : MonoBehaviour
     {
         VehicleData vehicleData = saveObject.vehicleData;
         BeatData beatData = saveObject.beatData;
+        
 
         //Calculate the number of seconds in each beat
         float secPerBeat = 60f / beatData.audioBpm;
@@ -139,18 +141,19 @@ public class CollectibleCreator : MonoBehaviour
             Debug.Log(distance);
             // Spawn the collectible
             Vector3 spawnPosition = new Vector3();
-            Quaternion spawnRotation = pathCreator.path.GetRotationAtDistance(distance, vehicleData.endOfPathInstruction) * Quaternion.Euler(0, -0, 90);
+            Quaternion spawnRotation = pathCreator.path.GetRotationAtDistance(distance, vehicleData.endOfPathInstruction) * Quaternion.Euler(0, 0, 90);
+
 
             GameObject collectibleBase;
             collectibleByType.TryGetValue(collectibleData.type, out collectibleBase);
 
             if (collectibleBase != null)
             {
-                transform.parent = transform;
                 GameObject collectible = Instantiate(collectibleBase, spawnPosition, spawnRotation);
                 collectible.transform.localScale = collectibleData.scale;
                 collectible.transform.position = pathCreator.path.GetPointAtDistance(distance, vehicleData.endOfPathInstruction) + (collectible.transform.right * collectibleData.offset) + (collectible.transform.up * collectibleData.heightOffset);
                 collectible.transform.parent = transform;
+                collectible.transform.rotation = pathCreator.path.GetRotationAtDistance(distance, vehicleData.endOfPathInstruction) * Quaternion.Euler(collectibleData.rotation);
 
                 Collectible collectibleScript = collectible.GetComponent<Collectible>();
 
@@ -160,6 +163,7 @@ public class CollectibleCreator : MonoBehaviour
                     collectibleScript.heightOffset = collectibleData.heightOffset;
                     collectibleScript.beat = collectibleData.beat;
                     collectibleScript.offset = collectibleData.offset;
+                    collectibleScript.Rotation = collectibleData.rotation;
                 }
             }
 
@@ -168,6 +172,7 @@ public class CollectibleCreator : MonoBehaviour
 
     public void GenerateRandomPath()
     {
+        
         PathFollower currentVehicle = vehicle.GetComponent<PathFollower>();
         if (currentVehicle == null)
         {
@@ -214,7 +219,7 @@ public class CollectibleCreator : MonoBehaviour
                 Debug.Log(distance);
                 // Spawn collectible
                 Vector3 spawnPosition = new Vector3();
-                Quaternion spawnRotation = pathCreator.path.GetRotationAtDistance(distance, currentVehicle.endOfPathInstruction) * Quaternion.Euler(0, -0, 90);
+                Quaternion spawnRotation = pathCreator.path.GetRotationAtDistance(distance, currentVehicle.endOfPathInstruction) * Quaternion.Euler(0, 0, 90);
 
                 GameObject randomPrefab = prefabs[UnityEngine.Random.Range(0, prefabs.Length)];
                 GameObject cube = Instantiate(randomPrefab, spawnPosition, spawnRotation);
@@ -222,6 +227,8 @@ public class CollectibleCreator : MonoBehaviour
                 cube.transform.localScale = randomPrefab.transform.localScale;//new Vector3(0.5f, 0.5f, 0.5f);
                 cube.transform.position = pathCreator.path.GetPointAtDistance(distance, currentVehicle.endOfPathInstruction) + (cube.transform.right * spawnOffset) + (cube.transform.up * collectible.heightOffset);
                 cube.transform.parent = transform;
+                
+                
 
                 Collectible cubeCollectible = cube.GetComponent<Collectible>();
                 if (cubeCollectible != null)
@@ -282,7 +289,7 @@ public class CollectibleCreator : MonoBehaviour
 
 
         // Spawn the collectible
-        Quaternion spawnRotation = pathCreator.path.GetRotationAtDistance(distance, currentVehicle.endOfPathInstruction) * Quaternion.Euler(0, -0, 90);
+        Quaternion spawnRotation = pathCreator.path.GetRotationAtDistance(distance, currentVehicle.endOfPathInstruction) * Quaternion.Euler(0, 0, 90);
 
 
         GameObject collectible = inCollectible.gameObject;
@@ -308,6 +315,7 @@ public class CollectibleCreator : MonoBehaviour
         public float offset;
         public float heightOffset;
         public Vector3 scale;
+        public Vector3 rotation;
     }
 
     [System.Serializable]
