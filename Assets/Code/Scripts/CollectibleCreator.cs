@@ -11,7 +11,8 @@ public class CollectibleCreator : MonoBehaviour
 {
     public PathCreator pathCreator;
     public GameObject vehicle;
-    public GameObject[] prefabs;
+    public List<PrefabWithChance> prefabs;
+
     
 
     // Random Path Creator
@@ -125,13 +126,14 @@ public class CollectibleCreator : MonoBehaviour
         float baseDistance = beatData.firstBeatOffset * vehicleData.speed;
 
         Dictionary<CollectibleType, GameObject> collectibleByType = new();
-        foreach (GameObject coll in prefabs)
+        foreach (var item in prefabs)
         {
-            Collectible collectibleScript = coll.GetComponent<Collectible>();
-            if (collectibleScript != null)
-            {
-                collectibleByType.Add(collectibleScript.type, coll);
-            }
+         GameObject coll = item.prefab;
+         Collectible collectibleScript = coll.GetComponent<Collectible>();
+             if (collectibleScript != null)
+          {
+              collectibleByType[collectibleScript.type] = coll;
+         }
         }
 
 
@@ -221,7 +223,10 @@ public class CollectibleCreator : MonoBehaviour
                 Vector3 spawnPosition = new Vector3();
                 Quaternion spawnRotation = pathCreator.path.GetRotationAtDistance(distance, currentVehicle.endOfPathInstruction) * Quaternion.Euler(0, 0, 90);
 
-                GameObject randomPrefab = prefabs[UnityEngine.Random.Range(0, prefabs.Length)];
+                GameObject randomPrefab = GetRandomPrefab();
+                    if (randomPrefab == null)
+                    continue;
+
                 GameObject cube = Instantiate(randomPrefab, spawnPosition, spawnRotation);
 
                 cube.transform.localScale = randomPrefab.transform.localScale;//new Vector3(0.5f, 0.5f, 0.5f);
@@ -265,6 +270,28 @@ public class CollectibleCreator : MonoBehaviour
             distance += secPerBeat * currentVehicle.speed * multiplier;
         }
     }
+        private GameObject GetRandomPrefab()
+{
+    float totalChance = 0f;
+    foreach (var item in prefabs)
+    {
+        totalChance += item.spawnChance;
+    }
+
+    float rand = UnityEngine.Random.value * totalChance;
+    float cumulative = 0f;
+
+    foreach (var item in prefabs)
+    {
+        cumulative += item.spawnChance;
+        if (rand <= cumulative)
+        {
+            return item.prefab;
+        }
+    }
+
+    return null; // Fallback
+}
 
     public void updateCollectible(Collectible inCollectible)
     {
@@ -336,4 +363,14 @@ public class CollectibleCreator : MonoBehaviour
         public float heightOffset;
         public EndOfPathInstruction endOfPathInstruction;
     }
+
+    [System.Serializable]
+         public class PrefabWithChance
+    {
+        public GameObject prefab;
+         [Range(0f, 1f)]
+        public float spawnChance;
+}
+
+
 }

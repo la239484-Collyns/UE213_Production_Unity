@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5190809732636690155}
   - component: {fileID: 6345574807760777142}
   - component: {fileID: -8191184086665272290}
+  - component: {fileID: -5150835327459864674}
   m_Layer: 0
   m_Name: RedCube
   m_TagString: Collectible
@@ -116,7 +117,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4033822839321833552}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0c070fa7eaf417a4682b5c3b0177a9d2, type: 3}
   m_Name: 
@@ -127,3 +128,40 @@ MonoBehaviour:
   offset: 0
   Value: -3
   Rotation: {x: 0, y: -90, z: 0}
+--- !u!114 &-5150835327459864674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4033822839321833552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4f54499ba7bc51469708f133f5e1bc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseRotation: {x: 0, y: 0, z: 0}
+  x:
+    enable: 0
+    speed: 0
+    min: -45
+    max: 45
+    mode: 0
+    current: 0
+    direction: 1
+  y:
+    enable: 0
+    speed: 0
+    min: -45
+    max: 45
+    mode: 0
+    current: 0
+    direction: 1
+  z:
+    enable: 1
+    speed: 0
+    min: 0
+    max: 360
+    mode: 1
+    current: 0
+    direction: 1

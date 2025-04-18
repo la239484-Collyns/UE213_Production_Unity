@@ -44,17 +44,17 @@ public class Collectible : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-      //      if (type == CollectibleType.Coin || type == CollectibleType.Obstacles)
-      //      {
+            if (type == CollectibleType.Coin || type == CollectibleType.Obstacles)
+            {
                 ScoreManager.instance.Addpoint(Value);
                 Destroy(gameObject);
             }
-      //      else if (type == CollectibleType.PowerUp)
-      //      {
-      //          PowerUp.instance.Change();
-      //          Destroy(gameObject);
-      //      }
-      //  }
+            else if (type == CollectibleType.PowerUp)
+            {
+                PowerUp.instance.Change();
+                Destroy(gameObject);
+            }
+        }
     }
 }
 
