@@ -139,18 +139,18 @@ public class CollectibleCreator : MonoBehaviour
             Debug.Log(distance);
             // Spawn the collectible
             Vector3 spawnPosition = new Vector3();
-            Quaternion spawnRotation = pathCreator.path.GetRotationAtDistance(distance, vehicleData.endOfPathInstruction) * Quaternion.Euler(0, -90, 180);
+            Quaternion spawnRotation = pathCreator.path.GetRotationAtDistance(distance, vehicleData.endOfPathInstruction) * Quaternion.Euler(0, -0, 90);
 
             GameObject collectibleBase;
             collectibleByType.TryGetValue(collectibleData.type, out collectibleBase);
 
             if (collectibleBase != null)
             {
+                transform.parent = transform;
                 GameObject collectible = Instantiate(collectibleBase, spawnPosition, spawnRotation);
                 collectible.transform.localScale = collectibleData.scale;
                 collectible.transform.position = pathCreator.path.GetPointAtDistance(distance, vehicleData.endOfPathInstruction) + (collectible.transform.right * collectibleData.offset) + (collectible.transform.up * collectibleData.heightOffset);
                 collectible.transform.parent = transform;
-
 
                 Collectible collectibleScript = collectible.GetComponent<Collectible>();
 
@@ -214,11 +214,12 @@ public class CollectibleCreator : MonoBehaviour
                 Debug.Log(distance);
                 // Spawn collectible
                 Vector3 spawnPosition = new Vector3();
-                Quaternion spawnRotation = pathCreator.path.GetRotationAtDistance(distance, currentVehicle.endOfPathInstruction) * Quaternion.Euler(0, -90, 180);
+                Quaternion spawnRotation = pathCreator.path.GetRotationAtDistance(distance, currentVehicle.endOfPathInstruction) * Quaternion.Euler(0, -0, 90);
 
                 GameObject randomPrefab = prefabs[UnityEngine.Random.Range(0, prefabs.Length)];
                 GameObject cube = Instantiate(randomPrefab, spawnPosition, spawnRotation);
 
+                cube.transform.localScale = randomPrefab.transform.localScale;//new Vector3(0.5f, 0.5f, 0.5f);
                 cube.transform.position = pathCreator.path.GetPointAtDistance(distance, currentVehicle.endOfPathInstruction) + (cube.transform.right * spawnOffset) + (cube.transform.up * collectible.heightOffset);
                 cube.transform.parent = transform;
 
@@ -228,6 +229,7 @@ public class CollectibleCreator : MonoBehaviour
                     cubeCollectible.beat = i;
                     cubeCollectible.offset = spawnOffset;
                     cubeCollectible.heightOffset = collectible.heightOffset;
+                    cube.transform.localRotation = pathCreator.path.GetRotationAtDistance(distance, currentVehicle.endOfPathInstruction) * Quaternion.Euler(cubeCollectible.Rotation);
                 }
 
                 currentGroupSize++;
@@ -280,7 +282,7 @@ public class CollectibleCreator : MonoBehaviour
 
 
         // Spawn the collectible
-        Quaternion spawnRotation = pathCreator.path.GetRotationAtDistance(distance, currentVehicle.endOfPathInstruction) * Quaternion.Euler(0, -90, 180);
+        Quaternion spawnRotation = pathCreator.path.GetRotationAtDistance(distance, currentVehicle.endOfPathInstruction) * Quaternion.Euler(0, -0, 90);
 
 
         GameObject collectible = inCollectible.gameObject;
