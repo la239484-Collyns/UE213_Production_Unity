@@ -37,14 +37,4 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
-    public void SoundStar()
-    {
-        AudioStar.Play();
-    }
-
-
-    public void SoundBarriere()
-    {
-        AudioBarriere.Play();
-    }
 }

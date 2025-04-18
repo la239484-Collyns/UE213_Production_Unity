@@ -48,13 +48,11 @@ public class Collectible : MonoBehaviour
 
                 if (type == CollectibleType.Coin || type == CollectibleType.PowerUp)
             {
-                ScoreManager.instance.SoundStar();
                 ScoreManager.instance.Addpoint(Value);
                 Destroy(gameObject);
             }
                 if(type == CollectibleType.Obstacles)
                 {
-                    ScoreManager.instance.SoundBarriere();
                     ScoreManager.instance.Addpoint(Value);
                     Destroy(gameObject); 
 
