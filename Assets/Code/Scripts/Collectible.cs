@@ -9,6 +9,7 @@ public class Collectible : MonoBehaviour
     public float offset;
     public int Value;
     public Vector3 Rotation;
+    public AudioSource Audio;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -44,16 +45,20 @@ public class Collectible : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (type == CollectibleType.Coin || type == CollectibleType.Obstacles)
+
+                if (type == CollectibleType.Coin || type == CollectibleType.PowerUp)
             {
+                ScoreManager.instance.SoundStar();
                 ScoreManager.instance.Addpoint(Value);
                 Destroy(gameObject);
             }
-            else if (type == CollectibleType.PowerUp)
-            {
-                PowerUp.instance.Change();
-                Destroy(gameObject);
-            }
+                if(type == CollectibleType.Obstacles)
+                {
+                    ScoreManager.instance.SoundBarriere();
+                    ScoreManager.instance.Addpoint(Value);
+                    Destroy(gameObject); 
+
+                }
         }
     }
 }

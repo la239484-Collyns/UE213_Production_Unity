@@ -7,6 +7,8 @@ public class ScoreManager : MonoBehaviour
     public static ScoreManager instance;
     int Score = 0;
     public Text ScoreText;
+    public AudioSource AudioStar;
+    public AudioSource AudioBarriere;
 
     public void Awake()
     {
@@ -33,5 +35,16 @@ public class ScoreManager : MonoBehaviour
             Score = 0;
         ScoreText.text = Score.ToString();
         }
+    }
+
+    public void SoundStar()
+    {
+        AudioStar.Play();
+    }
+
+
+    public void SoundBarriere()
+    {
+        AudioBarriere.Play();
     }
 }
