@@ -126,7 +126,7 @@ MonoBehaviour:
   heightOffset: 0
   beat: 0
   offset: 0
-  Value: 0
+  Value: 4
   Rotation: {x: 0, y: -90, z: 0}
 --- !u!114 &-8496451054988602091
 MonoBehaviour:

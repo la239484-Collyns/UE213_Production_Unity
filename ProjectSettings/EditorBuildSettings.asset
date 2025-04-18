@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Level/Scenes/Road.unity
     guid: 3ab3d137a7f8dfa47b5ccaac55cdd178
+  - enabled: 1
+    path: Assets/Level/Scenes/EndMenu.unity
+    guid: 64d68804e7119aa42ab1a02a5f5dcc5d
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 8872a101e46d18b4ea22770c99063cf2,
       type: 2}
